@@ -4,6 +4,7 @@ module.exports = {
   images: {
     domains: [
       "e7.pngegg.com",
+      "1000logos.net"
     ]
 }
 }

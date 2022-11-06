@@ -14,7 +14,7 @@ function Header() {
             <Link href='/'>
                 <div className='relative h-20 w-10 cursor-pointer opacity-80 transition hover:opacity-100' >
                     <Image
-                        src="https://e7.pngegg.com/pngimages/898/154/png-clipart-jumpman-air-jordan-nike-logo-nike.png"
+                        src="https://1000logos.net/wp-content/uploads/2016/10/Colors-Air-Jordan-Logo.jpg"
                         layout='fill'
                         objectFit='contain'
                         alt='text'
