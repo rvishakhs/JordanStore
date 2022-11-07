@@ -45,5 +45,20 @@ export default {
       title: "Description",
       type: "blockContent",
     },
+    {
+      name: 'brand',
+      title: 'Brand',
+      type: 'string',
+    },
+    {
+      name: 'year',
+      title: 'Year',
+      type: 'number',
+    },
+    {
+      name: 'colour',
+      title: 'Colour',
+      type: 'string',
+    },
   ]
   }
