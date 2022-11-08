@@ -7,7 +7,7 @@ type Props = {}
 
 export default function Landing({}: Props) {
   return (
-    <section className='sticky  mx-auto flex items-center justify-between top-0 h-screen mx-w-[1350px] px-8'>
+    <section className='sticky  mx-auto flex items-center justify-between top-0 h-screen mx-w-[1350px] px-8 lg:px-12'>
       <div className='space-y-6'>
         <h1 className='space-y-3 text-5xl md:text-6xl lg:text-7xl font-semibold tracking-wide'>
           <span className='block  font-black text-transparent bg-clip-text bg-gradient-to-r to-blue-700 from-red-500'>
