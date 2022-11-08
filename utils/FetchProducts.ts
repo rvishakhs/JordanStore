@@ -9,6 +9,6 @@ export const FetchProducts = async () => {
 
     const products : products[] = data.product
 
-    return products
-    
+    return products;
+
 }
