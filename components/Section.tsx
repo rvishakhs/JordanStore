@@ -40,8 +40,8 @@ export default function Section({categories, products}: Props) {
             </Tab.List>
             <Tab.Panels className="flex justify-center">
               <Tab.Panel>{showProducts(0)}</Tab.Panel>
-              {/* <Tab.Panel>{showProducts(1)}</Tab.Panel>
-              <Tab.Panel>{showProducts(2)}</Tab.Panel> */}
+              <Tab.Panel>{showProducts(1)}</Tab.Panel>
+              <Tab.Panel>{showProducts(2)}</Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </div>
