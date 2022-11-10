@@ -38,10 +38,10 @@ export default function Section({categories, products}: Props) {
               ))}
 
             </Tab.List>
-            <Tab.Panels className="flex justify-center">
-              <Tab.Panel>{showProducts(0)}</Tab.Panel>
-              <Tab.Panel>{showProducts(1)}</Tab.Panel>
-              <Tab.Panel>{showProducts(2)}</Tab.Panel>
+            <Tab.Panels className="mx-auto max-w-fit pt-10 pb-24 sm-px-4">
+              <Tab.Panel className="tabcontainer">{showProducts(0)}</Tab.Panel>
+              <Tab.Panel className="tabcontainer">{showProducts(1)}</Tab.Panel>
+              <Tab.Panel className="tabcontainer">{showProducts(2)}</Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </div>
