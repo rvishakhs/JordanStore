@@ -2,8 +2,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { CiSearch, CiShoppingBasket, CiUser  } from "react-icons/ci";
+import { useSelector } from 'react-redux';
+import { selectBasketItems } from '../redux/basketSlice';
 
 function Header() {
+
+    const items = useSelector(selectBasketItems)
 
     const session = false;
 
@@ -33,7 +37,7 @@ function Header() {
             <Link href='/checkout'>
                 <div className='cursor-pointer relative'>
                     <span className=' text-xs font-medium animate-bounce absolute -right-1 -top-1 z-50 flex h-4 w-4 
-                    items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-purple-500'>5</span>
+                    items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-purple-500'>{items.length}</span>
                     <CiShoppingBasket className='h-6 w-6 cursor-pointer transition hover:scale-110'/>
                 </div>
             </Link>

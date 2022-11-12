@@ -25,10 +25,10 @@ const Home = ({categories, products}: Props) => {
       </Head>
       <Header />
       {/* Main Section */}
-      <main className='bg-[#e7Ecee] relative h-[200vh]'>
+      <main id='hero'className='bg-[#e7Ecee] relative h-[200vh]'>
         <Landing />
       </main>
-      <section className='relative z-40 -mt-[100vh] min-h-screen bg-[#1b1b1b]'>
+      <section id='products' className='relative z-40 -mt-[100vh] min-h-screen bg-[#1b1b1b]'>
         <Section 
           categories={categories} 
           products = {products}

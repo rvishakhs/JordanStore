@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import { motion } from "framer-motion"
 import Button from './Button'
+import Link from 'next/link'
 
 type Props = {}
 
@@ -22,7 +23,9 @@ export default function Landing({}: Props) {
           <span className=' text-red-600'> 11</span>
         </h1>
         <div className='space-x-4'>
-          <Button tittle={"shop Now"} />
+          <Link href="#products">
+            <Button tittle={"shop Now"} />
+          </Link>
           <button className='link '> Learn More </button>
         </div>
       </div>
