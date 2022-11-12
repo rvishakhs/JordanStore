@@ -8,6 +8,7 @@ import { FetchCategories } from '../utils/FetchCategories'
 import { FetchProducts } from '../utils/FetchProducts'
 import { categories, products } from '../typings'
 import Section from '../components/Section'
+import Cart from "../components/Cart"
 
 interface Props {
   categories : categories[]
@@ -24,6 +25,7 @@ const Home = ({categories, products}: Props) => {
         <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Jumpman_logo.svg/800px-Jumpman_logo.svg.png" />
       </Head>
       <Header />
+        <Cart />
       {/* Main Section */}
       <main id='hero'className='bg-[#e7Ecee] relative h-[200vh]'>
         <Landing />
@@ -34,8 +36,10 @@ const Home = ({categories, products}: Props) => {
           products = {products}
         />
       </section>
-      
+      {/* Shopping cart */}
+
     </div>
+
   )
 }
 

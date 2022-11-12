@@ -34,7 +34,7 @@ function Header() {
         </div>
         <div className='flex space-x-3 items-center justify-center w-1/5'>
             <CiSearch className='h-6 w-6 cursor-pointer transition hover:scale-110'/>
-            <Link href='/checkout'>
+            <Link href='/cartdetails'>
                 <div className='cursor-pointer relative'>
                     <span className=' text-xs font-medium animate-bounce absolute -right-1 -top-1 z-50 flex h-4 w-4 
                     items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-purple-500'>{items.length}</span>

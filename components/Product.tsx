@@ -42,7 +42,6 @@ function Product({product}: Props) {
               onClick={cartbtn}
               className='rounded-full h-12 w-12 border-none flex-shrink-0 bg-gradient-to-r from-pink-500 to-purple-500 flex items-center mx-auto pl-3 hover:scale-105 text-xl text-center' ><BsCartPlus /></button>
           </div>
-          <Toaster />
         </div>
     </div>
   )
