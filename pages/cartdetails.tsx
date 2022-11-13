@@ -1,3 +1,4 @@
+import { Stripe } from 'stripe'
 import Head from 'next/head'
 import { Router, useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -7,6 +8,9 @@ import CheckoutPage from '../components/CheckoutPage'
 import Header from '../components/Header'
 import { selectBasketItems, selectBasketTotal } from '../redux/basketSlice'
 import { products } from '../typings'
+import { fetchPostJSON } from '../utils/api-helpers'
+import getStripe from '../utils/get-stripejs'
+
 
 type Props = {}
 
@@ -16,7 +20,36 @@ function cartdetails({}: Props) {
     const basketTotal = useSelector(selectBasketTotal)
     const router = useRouter() 
 
+    const [loading, setloading] = useState(false)
+
     const [groupedBasketTotal, setGroupedBasketTotal] = useState({} as { [key: string]: products[] })
+
+    const checkOut = async () =>  {
+        setloading(true)
+
+        const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON("./api/checkout_session", {items : items})
+
+        // Internal Error handling
+
+        if ((checkoutSession as any).statusCode === 500) {
+            console.error((checkoutSession as any).message);
+            return 
+        }
+
+        // Redirect to checkput
+        const stripe = await getStripe();
+        const { error } = await stripe!.redirectToCheckout({
+        // Make the id field from the Checkout Session creation API response
+        // available to this file, so you can provide it as parameter here
+        // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+        sessionId: checkoutSession.id,
+        });
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer
+        // using `error.message`.
+        console.warn(error.message);
+        setloading(false)
+    }
 
     useEffect(() => {
       const groupedItems = items.reduce((results, item) => {
@@ -58,6 +91,14 @@ function cartdetails({}: Props) {
                     <div className='p-4 right-10 flex justify-end'>
                         <p className='font-bold pr-8'>Subtotal : </p>
                         <p className='font-bold text-black'>  {basketTotal!}</p>
+                    </div>
+                    <div className='mx-auto flex justify-center'>
+                        <button 
+                            className='border p-2 px-28 border-gray-400 bg-black/90 hover:bg-black text-white rounded' 
+                            onClick={checkOut}
+                        >
+                            Checkout
+                        </button>
                     </div>
                 </div>
             )}
