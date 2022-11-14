@@ -10,7 +10,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   });
 
 
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -18,6 +17,7 @@ export default async function handler(
   
   if (req.method === "POST") {
     const items: products[] = req.body.items;
+    
 
     // This is the shape in which stripe expects the data to be
     const transformedItems = items.map((item) => ({
@@ -38,7 +38,7 @@ export default async function handler(
             line_items: transformedItems,
             payment_intent_data : {},
             mode: "payment",
-            success_url: `${req.headers.origin}/?success=true`,
+            success_url: `${req.headers.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.headers.origin}/checkout`,
             metadata : {
                 images: JSON.stringify(items.map((item) => item.image.asset._ref)),
@@ -48,7 +48,7 @@ export default async function handler(
         const checkoutSession: Stripe.Checkout.Session =
             await stripe.checkout.sessions.create(parms);
 
-    res.status(200).json({ checkoutSession })
+    res.status(200).json( checkoutSession )
   } catch (err) {
     const errorMessage = 
     err instanceof Error ? err.message : "Internal server error"
@@ -59,3 +59,5 @@ export default async function handler(
     res.status(405).end("Method Not Allowed");
   }
 }
+
+

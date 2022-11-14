@@ -27,7 +27,12 @@ function cartdetails({}: Props) {
     const checkOut = async () =>  {
         setloading(true)
 
-        const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON("./api/checkout_session", {items : items})
+        const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON(
+            "/api/checkout_session",
+            { 
+                items : items
+            }
+        );
 
         // Internal Error handling
 
@@ -48,6 +53,8 @@ function cartdetails({}: Props) {
         // error, display the localized error message to your customer
         // using `error.message`.
         console.warn(error.message);
+        console.log(error.message);
+        
         setloading(false)
     }
 

@@ -1,5 +1,8 @@
-import { Stripe, loadStripe } from '@stripe/stripe-js';
 
+import { loadStripe, Stripe } from "@stripe/stripe-js";
+
+// https://vercel.com/guides/getting-started-with-nextjs-typescript-stripe#loading-stripe.js
+// Singleton Pattern
 let stripePromise: Promise<Stripe | null>;
 const getStripe = () => {
   if (!stripePromise) {
@@ -9,5 +12,4 @@ const getStripe = () => {
 };
 
 export default getStripe;
-
 //  https://vercel.com/guides/getting-started-with-nextjs-typescript-stripe
