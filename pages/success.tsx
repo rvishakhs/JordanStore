@@ -2,14 +2,32 @@ import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsCheck2 } from "react-icons/bs";
+import { useMediaQuery } from 'react-responsive';
+import Button from '../components/Button';
+import { AiOutlineShoppingCart, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 
 function success() {
 
   const router = useRouter()
+  const [mounted, setmounted] = useState(false)
+  const [showOrderSummary, setshowOrderSummary] = useState(false)
 
-  const {sessionId } = router.query
+  const {sessionId } = router.query  
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
+  const showOrderSummaryCondition = isTabletOrMobile ? showOrderSummary : true;
+
+
+  const handleshowSummary = () => {
+    setshowOrderSummary(!showOrderSummary)
+  }
+
+  useEffect(() => {
+   setmounted(true)
+  }, [])
+  
 
   return (
     <div className='bg-[#e7Ecee] min-h-screen'>
@@ -32,7 +50,7 @@ function success() {
         </header>
 
         <main className='grid '>
-          <section className='order-2 mx-auto max-w-xl  mx-4 lg:col-span-5 lg:mx-0 lg:max-w-none lg:pr-16 lg:pt-16  xl:pl-16 2xl:pl-44'>       
+          <section className='order-2 mx-auto max-w-xl  lg:col-span-5 lg:mx-0 lg:max-w-none lg:pr-16 lg:pt-16  xl:pl-16 2xl:pl-44'>       
             <Link href='/'>
                   <div className='relative h-24 ml-14 w-16 cursor-pointer transition hidden lg:inline-flex' >
                       <Image
@@ -69,11 +87,30 @@ function success() {
               <p className='text-lg'>Order Updates</p>
               <p className='text-sm'>You'll get the shipment details and deliver updates by Email</p>
             </div>
-            <div className='py-3 hidden lg:inline-flex'>
+            <div className='py-3 hidden lg:inline-flex flex-col'>
               <p className='text-sm'>Need help? Contact us on jordanstorehelpline@gmail.com</p>
+              
             </div>
           </div>
           </section>
+
+          {mounted && (
+            <section>
+              <div className={`w-full ${showOrderSummary && "border-b "} border-gray-300 text-sm lg:hidden mx-4` }>
+                <div className=''>
+                  <button 
+                    className='flex space-x-2 items-center'
+                    onClick={handleshowSummary}
+                  >
+                    <AiOutlineShoppingCart className='h-4 w-4'/>
+                    <p>Show order summary</p>
+                      {showOrderSummary ? <AiOutlineUp className='h-4 w-4'/> : <AiOutlineDown className='h-4 w-4' />}
+                  </button>
+                </div>
+
+              </div>
+            </section>
+          )}
 
         </main>
 
