@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { BsCheck2 } from "react-icons/bs";
 import { useMediaQuery } from 'react-responsive';
-import Button from '../components/Button';
 import { AiOutlineShoppingCart, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import { GetServerSideProps } from 'next';
 import { stripeProducts } from '../typings';
@@ -153,19 +152,27 @@ function success({products}: Props ) {
                     </div>
                     <div>
                       <div className='flex justify-between mx-2'>
-                        <p className='text-[gray]'>Subtoal</p>
-                        <p className='text-[gray]'>{subtotal}</p>
+                        <p className='text-[gray]'>Amount</p>
+                        <p className='text-[gray]'>$ {subtotal}</p>
+                      </div>
+                      <div className='flex justify-between mx-3'>
+                        <p className='text-xs text-[black]/80'>Discount</p>
+                        <p className='text-xs text-[black]/80'>$ 0.00</p>
+                      </div>
+                      <div className='flex justify-between mx-3'>
+                        <p className='text-xs text-[black]/80'>VAT 18% </p>
+                        <p className='text-xs text-[black]/80'>$ {subtotal/100*18}</p>
+                      </div>
+                      <div className='flex justify-between mx-2'>
+                        <p className='text-[gray]'>Sub Total</p>
+                        <p className='text-[gray]'>$ {subtotal + subtotal/100*18}</p>
                       </div>
                     </div>
                  </div> 
               )}
             </section>
           )}
-
         </main>
-
-
-
     </div>
   )
 }
