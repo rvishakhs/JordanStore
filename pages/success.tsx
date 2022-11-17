@@ -7,8 +7,19 @@ import { BsCheck2 } from "react-icons/bs";
 import { useMediaQuery } from 'react-responsive';
 import Button from '../components/Button';
 import { AiOutlineShoppingCart, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
+import { GetServerSideProps } from 'next';
+import { stripeProducts } from '../typings';
+import {FetchLineItems} from "../utils/FetchLineItems"
 
-function success() {
+
+interface Props {
+  products : stripeProducts[]
+}
+
+function success({products}: Props ) {
+
+  console.log(products);
+  
 
   const router = useRouter()
   const [mounted, setmounted] = useState(false)
@@ -24,13 +35,15 @@ function success() {
     setshowOrderSummary(!showOrderSummary)
   }
 
+  const subtotal = products.reduce((total, product) => total + product.price.unit_amount / 100, 0)
+
   useEffect(() => {
    setmounted(true)
   }, [])
   
 
   return (
-    <div className='bg-[#e7Ecee] min-h-screen'>
+    <div className=' min-h-screen'>
          <Head>
             <title>Thank You | JordanStore</title>
             <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Jumpman_logo.svg/800px-Jumpman_logo.svg.png" />
@@ -96,8 +109,8 @@ function success() {
 
           {mounted && (
             <section>
-              <div className={`w-full ${showOrderSummary && "border-b "} border-gray-300 text-sm lg:hidden mx-4` }>
-                <div className=''>
+              <div className={` ${showOrderSummary && "border-b "} border-gray-300 text-sm lg:hidden mx-4` }>
+                <div className='flex justify-between mx-2'>
                   <button 
                     className='flex space-x-2 items-center'
                     onClick={handleshowSummary}
@@ -106,9 +119,46 @@ function success() {
                     <p>Show order summary</p>
                       {showOrderSummary ? <AiOutlineUp className='h-4 w-4'/> : <AiOutlineDown className='h-4 w-4' />}
                   </button>
+                  <p className='text-xl font-medium text-black'>
+                   $ {subtotal}
+                  </p>
                 </div>
-
               </div>
+              {showOrderSummary && (
+                 <div>
+                    <div>
+                        {products.map((product) => (
+                          <div key={product.id} className="mx-2 flex items-center space-x-4 text-sm font-medium">
+                              <div className='relative flex items-center justify-center border border-gray-300 bg-[##F1F1F1] text-xs h-14 w-14'>
+                                <div className='relative h-7 w-7 animate-bounce rounded-md'>
+                                <Image
+                                    src="https://1000logos.net/wp-content/uploads/2016/10/Colors-Air-Jordan-Logo.jpg"
+                                    layout="fill"
+                                    objectFit="contain"
+                                    alt='any'
+                                  />
+                                </div>
+                                <div className='absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[gray] text-xs'>
+                                  {product.quantity}
+                                </div>
+                              </div>
+                                <p className='flex-1'>
+                                  {product.description}
+                                </p>
+                                <p className=''>
+                                  {product.price.unit_amount / 100}
+                                </p>
+                          </div>
+                        ))}
+                    </div>
+                    <div>
+                      <div className='flex justify-between mx-2'>
+                        <p className='text-[gray]'>Subtoal</p>
+                        <p className='text-[gray]'>{subtotal}</p>
+                      </div>
+                    </div>
+                 </div> 
+              )}
             </section>
           )}
 
@@ -121,3 +171,15 @@ function success() {
 }
 
 export default success
+
+export const getServerSideProps : GetServerSideProps = async ({query}) => {
+
+  const sessionId = query.sessionId as string;
+  const products = await FetchLineItems(sessionId)
+
+  return {
+    props: {
+      products
+    }
+  }
+}
