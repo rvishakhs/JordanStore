@@ -50,7 +50,7 @@ function success({products}: Props ) {
 
         <header className='ml-4 p-1 '>
           <Link href='/'>
-                  <div className='relative h-20 w-10 cursor-pointer opacity-80 transition hover:opacity-100 lg:hidden' >
+                  <div className='relative ml-4 h-16 w-8 cursor-pointer transition lg:hidden' >
                       <Image
                           src="https://1000logos.net/wp-content/uploads/2016/10/Colors-Air-Jordan-Logo.jpg"
                           layout='fill'
@@ -61,10 +61,10 @@ function success({products}: Props ) {
             </Link>
         </header>
 
-        <main className='grid '>
-          <section className='order-2 mx-auto max-w-xl  lg:col-span-5 lg:mx-0 lg:max-w-none lg:pr-16 lg:pt-16  xl:pl-16 2xl:pl-44'>       
+        <main className='grid grid-col-1 lg:grid-cols-9'>
+          <section className='order-2 mx-auto max-w-xl pb-12 lg:col-span-5 lg:mx-0 lg:max-w-none lg:pr-16 lg:pt-16 xl:pl-16 2xl:pl-44'>       
             <Link href='/'>
-                  <div className='relative h-24 ml-14 w-16 cursor-pointer transition hidden lg:inline-flex' >
+                  <div className='relative ml-14 hidden h-24 w-12 cursor-pointer transition lg:inline-flex"' >
                       <Image
                           src="https://1000logos.net/wp-content/uploads/2016/10/Colors-Air-Jordan-Logo.jpg"
                           layout='fill'
@@ -107,9 +107,9 @@ function success({products}: Props ) {
           </section>
 
           {mounted && (
-            <section>
+            <section className='  border-y border-1  bg-[#FAFAFA] lg:order-2 lg:col-span-4 lg:h-screen lg:border-y-0 border-gray-300'>
               <div className={` ${showOrderSummary && "border-b "} border-gray-300 text-sm lg:hidden mx-4` }>
-                <div className='flex justify-between mx-2'>
+                <div className='mx-auto flex max-w-xl items-center justify-between px-4 py-6'>
                   <button 
                     className='flex space-x-2 items-center'
                     onClick={handleshowSummary}
@@ -119,16 +119,16 @@ function success({products}: Props ) {
                       {showOrderSummary ? <AiOutlineUp className='h-4 w-4'/> : <AiOutlineDown className='h-4 w-4' />}
                   </button>
                   <p className='text-xl font-medium text-black'>
-                   $ {subtotal}
+                   $ {subtotal + subtotal/100 * 18}
                   </p>
                 </div>
               </div>
-              {showOrderSummary && (
-                 <div>
-                    <div>
+              {showOrderSummaryCondition && (
+                 <div className='mx-auto max-w-xl divide-y border-gray-300 px-4 py-4 lg:mx-0 lg:max-w-lg lg:px-10 lg:py-16'>
+                    <div className='space-y-4 pb-4'>
                         {products.map((product) => (
                           <div key={product.id} className="mx-2 flex items-center space-x-4 text-sm font-medium">
-                              <div className='relative flex items-center justify-center border border-gray-300 bg-[##F1F1F1] text-xs h-14 w-14'>
+                              <div className='relative flex h-16 w-16 items-center justify-center rounded-md border border-gray-300 bg-[#F1F1F1] text-xs text-white'>
                                 <div className='relative h-7 w-7 animate-bounce rounded-md'>
                                 <Image
                                     src="https://1000logos.net/wp-content/uploads/2016/10/Colors-Air-Jordan-Logo.jpg"
@@ -150,24 +150,24 @@ function success({products}: Props ) {
                           </div>
                         ))}
                     </div>
-                    <div>
-                      <div className='flex justify-between mx-2'>
-                        <p className='text-[gray]'>Amount</p>
-                        <p className='text-[gray]'>$ {subtotal}</p>
+                    <div className=''>
+                      <div className='flex justify-between gap-2 items-center mx-2'>
+                        <p className='text-[gray] items-center'>Amount</p>
+                        <p className='text-[gray] items-center'>$ {subtotal}</p>
                       </div>
-                      <div className='flex justify-between mx-3'>
-                        <p className='text-xs text-[black]/80'>Discount</p>
-                        <p className='text-xs text-[black]/80'>$ 0.00</p>
+                      <div className='flex justify-between gap-2 items-center mx-3'>
+                        <p className='text-xs items-center text-[black]/80'>Discount</p>
+                        <p className='text-xs items-center text-[black]/80'>$ 0.00</p>
                       </div>
-                      <div className='flex justify-between mx-3'>
-                        <p className='text-xs text-[black]/80'>VAT 18% </p>
-                        <p className='text-xs text-[black]/80'>$ {subtotal/100*18}</p>
-                      </div>
-                      <div className='flex justify-between mx-2'>
-                        <p className='text-[gray]'>Sub Total</p>
-                        <p className='text-[gray]'>$ {subtotal + subtotal/100*18}</p>
+                      <div className='flex justify-between mx-3 gap-2 items-center'>
+                        <p className='text-xs items-center text-[black]/80'>VAT 18% </p>
+                        <p className='text-xs items-center text-[black]/80'>$ {subtotal/100*18}</p>
                       </div>
                     </div>
+                      <div className='flex justify-between pt-2 items-center font-medium gap-2 mx-2'>
+                        <p className='text-[black] items-center'>Sub Total</p>
+                        <p className='text-[black] items-center'>$ {subtotal + subtotal/100*18}</p>
+                      </div>
                  </div> 
               )}
             </section>
