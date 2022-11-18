@@ -9,6 +9,7 @@ import { AiOutlineShoppingCart, AiOutlineUp, AiOutlineDown } from "react-icons/a
 import { GetServerSideProps } from 'next';
 import { stripeProducts } from '../typings';
 import {FetchLineItems} from "../utils/FetchLineItems"
+import Button from '../components/Button';
 
 
 interface Props {
@@ -101,8 +102,16 @@ function success({products}: Props ) {
             </div>
             <div className='py-3 hidden lg:inline-flex flex-col'>
               <p className='text-sm'>Need help? Contact us on jordanstorehelpline@gmail.com</p>
-              
             </div>
+          </div>
+
+          <div className='flex mx-auto max-w-xl items-center justify-center my-3 '>
+            <button 
+              className='border p-2 px-28 border-gray-400 bg-black/90 hover:bg-black text-white rounded' 
+              onClick={() => router.push("/")}
+            >
+              Home
+            </button>
           </div>
           </section>
 

@@ -81,12 +81,14 @@ function cartdetails({}: Props) {
                 <h1 className='font-semibold text-2xl md:text-3xl font-sans'>
                     {items.length > 0 ? ("Your Cart Summary") : ("Your cart is empty") }
                 </h1>
-                {/* {items.length === 0 && (
-                    <Button
-                      tittle="Continue Shopping"
-                      onClick={() => router.push("/")}
-                  />
-                )} */}
+                {items.length === 0 && (
+                    <button 
+                    className='border my-4 p-2 px-16 border-gray-400 bg-black/90 hover:bg-black text-white rounded' 
+                    onClick={() => router.push("/")}
+                >
+                    Countinue To shopping
+                </button>
+                )}
             </div>
 
             {items.length > 0 && (

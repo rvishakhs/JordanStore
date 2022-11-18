@@ -27,7 +27,9 @@ function Header() {
             </Link>
         </div>
         <div className='hidden md:flex space-x-10 items-center'>
-            <p className='header link'>Product</p>
+            <Link href="/#products">
+                <p className='header link'>Product</p>
+            </Link>
             <p className='header link'>Explore</p>
             <p className='header link'>Support</p>
             <p className='header link'>Business</p>
