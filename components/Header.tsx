@@ -4,12 +4,17 @@ import React from 'react'
 import { CiSearch, CiShoppingBasket, CiUser  } from "react-icons/ci";
 import { useSelector } from 'react-redux';
 import { selectBasketItems } from '../redux/basketSlice';
+import { useSession, signIn, signOut } from "next-auth/react"
 
 function Header() {
 
+    const { data: session } = useSession()
+
+    console.log(session?.user?.image);
+    
+
     const items = useSelector(selectBasketItems)
 
-    const session = false;
 
   return (
     <header className=' sticky top-0 z-30 bg-[#e7Ecee] flex items-center w-full  mx-auto justify-between'>
@@ -43,8 +48,19 @@ function Header() {
                     <CiShoppingBasket className='h-6 w-6 cursor-pointer transition hover:scale-110'/>
                 </div>
             </Link>
-            {session? (<CiSearch className='h-6 w-6 cursor-pointer transition hover:scale-110'/>)
-             : (<CiUser className='h-6 w-6 cursor-pointer transition hover:scale-110'/>)}
+            {session? ( 
+            
+            <div className='h-8 flex items-center w-8 rounded-full'>
+                <img
+                    src = {session?.user?.image || "https://1000logos.net/wp-content/uploads/2016/10/Colors-Air-Jordan-Logo.jpg"  }
+                    className='h-6 w-6 rounded-full cursor-pointer transition hover:scale-110'
+                    onClick={() => signOut()}
+                >
+                
+                </img>
+            </div>
+            )
+             : (<CiUser onClick={() => signIn()} className='h-6 w-6 cursor-pointer transition hover:scale-110'/>)}
         </div>
 
     </header>

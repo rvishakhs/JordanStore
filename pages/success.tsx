@@ -10,6 +10,7 @@ import { GetServerSideProps } from 'next';
 import { stripeProducts } from '../typings';
 import {FetchLineItems} from "../utils/FetchLineItems"
 import Button from '../components/Button';
+import { useSession } from 'next-auth/react';
 
 
 interface Props {
@@ -17,10 +18,8 @@ interface Props {
 }
 
 function success({products}: Props ) {
-
-  console.log(products);
+  const { data: session } = useSession()
   
-
   const router = useRouter()
   const [mounted, setmounted] = useState(false)
   const [showOrderSummary, setshowOrderSummary] = useState(false)
@@ -30,6 +29,8 @@ function success({products}: Props ) {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
   const showOrderSummaryCondition = isTabletOrMobile ? showOrderSummary : true;
 
+  console.log(products);
+  
 
   const handleshowSummary = () => {
     setshowOrderSummary(!showOrderSummary)
@@ -80,9 +81,8 @@ function success({products}: Props ) {
             </div>
             <div>
               <p className='text-sm text-gray-500'>Order #{sessionId?.slice(-5)}</p>
-              <h2 className='text-lg'>Thank You {" "} 
-              {/* {session ? sessionId.user?.name?.split : "Guest" } */}
-              </h2>
+              <h2 className='text-lg'>Thank You {session ? session?.user?.name  : "Guest" }</h2>
+              
             </div>
           </div>
           <div className=' mx-4 divide-y divide-gray-400 rounded-lg border border-gray-400 p-2'>

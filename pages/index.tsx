@@ -9,13 +9,16 @@ import { FetchProducts } from '../utils/FetchProducts'
 import { categories, products } from '../typings'
 import Section from '../components/Section'
 import Cart from "../components/Cart"
+import { getSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 
 interface Props {
   categories : categories[]
   products : products[]
+  session : Session | null
 }
 
-const Home = ({categories, products}: Props) => {
+const Home = ({categories, products,}: Props) => {
 
 
   return (
@@ -46,16 +49,16 @@ const Home = ({categories, products}: Props) => {
 export default Home
 
 
-export const getServerSideProps : GetServerSideProps = async () => {
+export const getServerSideProps : GetServerSideProps = async (context) => {
 
   const categories : categories[] = await FetchCategories();
   const products : products[] = await FetchProducts();
-
-
+  const session = await getSession(context);
   return {
     props : {
         categories,
-        products
+        products,
+        session
     }
   }
 
