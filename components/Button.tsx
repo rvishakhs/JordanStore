@@ -2,7 +2,6 @@ import React from 'react'
 
 type Props = {
     tittle : any
-    toggleFunction: (param: any) => void
 }
 
 export default function Button({tittle}: Props) {

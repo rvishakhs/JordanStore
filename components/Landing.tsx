@@ -24,7 +24,11 @@ export default function Landing({}: Props) {
         </h1>
         <div className='space-x-4'>
           <Link href="#products">
-            <Button tittle={"shop Now"} />
+            <button 
+                className='border p-2 px-28 border-gray-400 bg-black/90 hover:bg-black text-white rounded' 
+              >
+                Products
+              </button>
           </Link>
           <button className='link '> Learn More </button>
         </div>
